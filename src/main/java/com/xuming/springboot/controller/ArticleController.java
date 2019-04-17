@@ -5,9 +5,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.xuming.springboot.model.Article;
+import com.xuming.springboot.respository.ArticleRepository;
+import com.xuming.springboot.service.ArticleService;
 import com.xuming.springboot.service.IArticleService;
 
 @Controller
@@ -23,9 +27,10 @@ public class ArticleController {
 
 	@Autowired
 	public IArticleService iArticleService;
+	public ArticleRepository articleRepository;
 	
-	@GetMapping("article/{id}")
-	public ResponseEntity<Article> getArticleById(@PathVariable("id") Long id) {
+	@GetMapping("articles/{id}")
+	public ResponseEntity<Article> getArticleById(@PathVariable("id") long id) {
 		
 		Article article = iArticleService.getArticleById(id);
 		return new ResponseEntity<Article>(article,HttpStatus.OK);
@@ -37,15 +42,25 @@ public class ArticleController {
 		return iArticleService.getAllArticles();
 	}
 	
-//	@PostMapping("articles")
-//	public @ResponseBody String addArticle(@RequestParam String title,@RequestParam String category){
-//		
-//		Article article = new Article();
-//		
-//		article.setTitle(title);
-//		article.setCategory(category);
-//		
-//		
-//
-//	}
+	@PostMapping("articles")
+	public ResponseEntity<Article> addArticle(@RequestBody Article article){
+		
+
+		iArticleService.addArticle(article);
+		return new ResponseEntity<Article>(article,HttpStatus.OK);
+		
+
+	}
+	
+	@PutMapping("articles")
+	public ResponseEntity<Article> updateArticle(@RequestBody Article article){
+		iArticleService.updateArticle(article);
+		return new ResponseEntity<Article>(article,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("articles/{id}")
+	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Long id ){
+		iArticleService.deleteArticle(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 }

@@ -20,7 +20,7 @@ public class ArticleService implements IArticleService {
 	public List<Article> getAllArticles() {
 		List<Article> list = new ArrayList<>();
 		articleRepository.findAll().forEach(e->list.add(e));
-		return null;
+		return list;
 	}
 
 	@Override
