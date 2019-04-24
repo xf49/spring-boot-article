@@ -63,4 +63,10 @@ public class ArticleController {
 		iArticleService.deleteArticle(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
+	
+	@DeleteMapping("articles")
+	public ResponseEntity<Void> deleteAllArticles(){
+		iArticleService.deleteAll();
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 }

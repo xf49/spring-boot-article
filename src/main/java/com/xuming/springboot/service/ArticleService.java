@@ -55,4 +55,11 @@ public class ArticleService implements IArticleService {
 		
 	}
 
+	@Override
+	public void deleteAll() {
+		articleRepository.deleteAll();
+		
+	}
+
+
 }
