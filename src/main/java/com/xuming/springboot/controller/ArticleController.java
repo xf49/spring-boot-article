@@ -42,8 +42,22 @@ public class ArticleController {
 	}
 	
 	@GetMapping("articles")
-	public @ResponseBody Iterable<Article> getAllArticles() {
+	public @ResponseBody Iterable<Article> 
+	getAllArticles(@RequestParam(required=false)String title,
+			       @RequestParam(required=false) String category) {
+		if(category==null&&title==null) {
+			
 		return iArticleService.getAllArticles();
+		
+		}else if(category!=null&&title==null){
+			
+			return iArticleService.getArticlesByCategory(category);
+			
+		}else if(category==null&&title!=null) {
+			return (Iterable<Article>) iArticleService.findByTitle(title);
+		}else {
+			return iArticleService.getArticlesByTitleAndCategory(title, category);
+		}
 	}
 	
 	@PostMapping("articles")

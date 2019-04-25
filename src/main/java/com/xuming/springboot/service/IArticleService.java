@@ -20,6 +20,8 @@ public interface IArticleService {
     
     Article findByTitle(String title);
     
+    List<Article> getArticlesByTitleAndCategory(String title,String category);
+    
     List<Article> getArticlesByCategory(String category);
 	
 }
