@@ -1,5 +1,9 @@
 package com.xuming.springboot.controller;
 
+import java.util.List;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -67,6 +71,21 @@ public class ArticleController {
 	@DeleteMapping("articles")
 	public ResponseEntity<Void> deleteAllArticles(){
 		iArticleService.deleteAll();
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping("articles/titles")
+   public @ResponseBody Article getArticleByArticleName(@RequestParam(required=true) String title){
+	   
+		Article article = iArticleService.findByTitle(title);
+	   	
+		return iArticleService.findByTitle(title);
+	   
+   }
+	
+	@GetMapping("articles/category")
+	public @ResponseBody List<Article> getArticlesByCategory(@RequestParam(required=true)String category){
+		List<Article> articles = iArticleService.getArticlesByCategory(category);
+		return articles;
 	}
 }

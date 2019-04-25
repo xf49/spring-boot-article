@@ -61,5 +61,21 @@ public class ArticleService implements IArticleService {
 		
 	}
 
+	@Override
+	public Article findByTitle(String title) {
+		Article article = (Article) articleRepository.findByTitle(title);
+		return (Article) article;
+		
+	}
+
+	@Override
+	public List<Article> getArticlesByCategory(String category) {
+
+		List<Article> article = articleRepository.findByCategory(category);
+		
+		return article;
+		
+	}
+
 
 }
